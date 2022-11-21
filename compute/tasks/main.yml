@@ -1,0 +1,35 @@
+---
+# tasks file for compute
+- name: run apt update
+  become: yes
+  ansible.builtin.apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: run apt distro
+  become: yes
+  ansible.builtin.apt:
+    upgrade: dist
+
+- name: install software packages
+  become: yes
+  ansible.builtin.apt:
+    pkg:
+      - bridge-utils
+      - debootstrap
+      - openssh-server
+      - tcpdump
+      - vlan
+      - python3
+    state: present
+
+- name: ensure kernel
+  become: yes
+  vars:
+    kernel_version: "{{ ansible_kernel}}"
+  ansible.builtin.apt:
+    name: linux-modules-extra-{{ kernel_version }}
+
+- name: include SSH role
+  include_role:
+    role: ssh

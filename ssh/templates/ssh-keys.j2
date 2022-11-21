@@ -1,0 +1,4 @@
+# Upload the ssh-keys to the authorized_keys
+{% for key in /files %}
+    {{ key }}
+{% endfor %}

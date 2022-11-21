@@ -1,0 +1,4 @@
+---
+# defaults file for deploy
+repo: https://opendev.org/openstack/openstack-ansible
+version: 25.1.1

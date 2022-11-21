@@ -1,0 +1,27 @@
+---
+# tasks file for deploy
+- name: prepare the deployment host
+  become: yes
+  ansible.builtin.apt:
+    update_cache: yes
+    cache_valid_time: 3600
+- name: install software packages
+  become: yes
+  ansible.builtin.apt:
+    pkg:
+      - build-essential
+      - git
+      - chrony
+      - openssh-server
+      - python3-dev
+      - sudo
+    state: present
+- name: include the chrony role
+  include_role:
+    name: chrony
+- name: include the ssh role
+  include_role:
+    name: ssh
+- name: include the git role
+  include_role:
+    name: git

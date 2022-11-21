@@ -1,0 +1,14 @@
+---
+# tasks file for git
+- name: clone the github repo
+  become: yes
+  ansible.builtin.git:
+    repo: "{{ repo }}"
+    dest: "{{ openstack_dir }}"
+    single_branch: yes
+    version: "{{ version }}"
+- name: run the script
+  become: yes
+  ansible.builtin.shell: 
+    cmd: scripts/bootstrap-ansible.sh
+    chdir: "{{ openstack_dir }}"
